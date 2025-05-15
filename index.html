@@ -4,100 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prenota Relazione Tecnica</title>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("QpmzzTDO3M2Z5RqtZ");
-    })();
-  </script>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #e6f0fa;
-      color: #333;
-    }
-    .wrapper {
-      max-width: 600px;
-      margin: auto;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(to right, #1e5799, #2989d8);
-      color: white;
-      padding: 30px 20px 20px;
-      text-align: center;
-      position: relative;
-    }
-    .header h2 {
-      margin: 0 0 10px;
-      font-size: 22px;
-    }
-    .header p {
-      margin: 0;
-      font-size: 15px;
-    }
-    .promo-ribbon {
-      position: absolute;
-      top: 15px;
-      right: -40px;
-      background: #e74c3c;
-      color: white;
-      padding: 5px 40px;
-      transform: rotate(45deg);
-      font-size: 12px;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    .container {
-      padding: 30px;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-    input[type="checkbox"] {
-      width: auto;
-      margin-right: 10px;
-    }
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      margin-top: 10px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #1e5799;
-      color: white;
-      border: none;
-      width: 100%;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #15437a;
-    }
-    .note {
-      font-size: 12px;
-      color: #777;
-      margin-top: 10px;
-    }
-  </style>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="static/css/styles.css">
 </head>
 <body>
   <div class="wrapper">
@@ -108,78 +18,168 @@
     </div>
     <div class="container">
       <form id="prenotazioneForm">
-        <label>Nome <input type="text" name="nome" required></label>
-        <label>Cognome <input type="text" name="cognome" required></label>
-        <label>Codice Fiscale <input type="text" name="codiceFiscale" required></label>
-        <label>Email <input type="email" name="email" required></label>
-        <label>Ubicazione immobile
-          <select name="ubicazione" required>
-            <option value="">Seleziona un Comune</option>
-            <option value="Napoli">Napoli</option>
-            <option value="San Giorgio a Cremano">San Giorgio a Cremano</option>
-            <option value="Afragola">Afragola</option>
-            <option value="Portici">Portici</option>
-            <option value="Pozzuoli">Pozzuoli</option>
-          </select>
-        </label>
-        <label>Tipo Immobile
-          <select name="tipoImmobile" required>
-            <option value="Residenziale">Residenziale</option>
-            <option value="Commerciale">Commerciale</option>
-          </select>
-        </label>
-        <label>Grandezza Immobile
-          <select name="grandezzaImmobile" required>
-            <option value="fino a 140,00 mq">fino a 140,00 mq</option>
-          </select>
-        </label>
-        <div class="checkbox-label">
-          <input type="checkbox" name="haVisura" id="haVisura">
-          <label for="haVisura">Ho la visura e la planimetria catastale</label>
+        <div id="formFields">
+          <label>Nome <input type="text" name="nome" required></label>
+          <label>Cognome <input type="text" name="cognome" required></label>
+          <label>Codice Fiscale <input type="text" name="codiceFiscale" required></label>
+          <label>Email <input type="email" name="email" required></label>
+          <label>Ubicazione immobile
+            <select name="ubicazione" required>
+              <option value="">Seleziona un Comune</option>
+              <option value="Acerra">Acerra</option>
+              <option value="Afragola">Afragola</option>
+              <option value="Agerola">Agerola</option>
+              <option value="Anacapri">Anacapri</option>
+              <option value="Arzano">Arzano</option>
+              <option value="Bacoli">Bacoli</option>
+              <option value="Barano d'Ischia">Barano d'Ischia</option>
+              <option value="Boscoreale">Boscoreale</option>
+              <option value="Boscotrecase">Boscotrecase</option>
+              <option value="Brusciano">Brusciano</option>
+              <option value="Caivano">Caivano</option>
+              <option value="Calvizzano">Calvizzano</option>
+              <option value="Camposano">Camposano</option>
+              <option value="Capri">Capri</option>
+              <option value="Carbonara di Nola">Carbonara di Nola</option>
+              <option value="Cardito">Cardito</option>
+              <option value="Casalnuovo di Napoli">Casalnuovo di Napoli</option>
+              <option value="Casamarciano">Casamarciano</option>
+              <option value="Casamicciola Terme">Casamicciola Terme</option>
+              <option value="Casandrino">Casandrino</option>
+              <option value="Casavatore">Casavatore</option>
+              <option value="Casola di Napoli">Casola di Napoli</option>
+              <option value="Casoria">Casoria</option>
+              <option value="Castellammare di Stabia">Castellammare di Stabia</option>
+              <option value="Castello di Cisterna">Castello di Cisterna</option>
+              <option value="Cercola">Cercola</option>
+              <option value="Cicciano">Cicciano</option>
+              <option value="Cimitile">Cimitile</option>
+              <option value="Comiziano">Comiziano</option>
+              <option value="Crispano">Crispano</option>
+              <option value="Ercolano">Ercolano</option>
+              <option value="Forio">Forio</option>
+              <option value="Frattamaggiore">Frattamaggiore</option>
+              <option value="Frattaminore">Frattaminore</option>
+              <option value="Giugliano in Campania">Giugliano in Campania</option>
+              <option value="Gragnano">Gragnano</option>
+              <option value="Grumo Nevano">Grumo Nevano</option>
+              <option value="Ischia">Ischia</option>
+              <option value="Lacco Ameno">Lacco Ameno</option>
+              <option value="Lettere">Lettere</option>
+              <option value="Liveri">Liveri</option>
+              <option value="Marano di Napoli">Marano di Napoli</option>
+              <option value="Mariglianella">Mariglianella</option>
+              <option value="Marigliano">Marigliano</option>
+              <option value="Massa di Somma">Massa di Somma</option>
+              <option value="Massa Lubrense">Massa Lubrense</option>
+              <option value="Melito di Napoli">Melito di Napoli</option>
+              <option value="Meta">Meta</option>
+              <option value="Monte di Procida">Monte di Procida</option>
+              <option value="Mugnano di Napoli">Mugnano di Napoli</option>
+              <option value="Napoli">Napoli</option>
+              <option value="Nola">Nola</option>
+              <option value="Ottaviano">Ottaviano</option>
+              <option value="Palma Campania">Palma Campania</option>
+              <option value="Piano di Sorrento">Piano di Sorrento</option>
+              <option value="Pimonte">Pimonte</option>
+              <option value="Poggiomarino">Poggiomarino</option>
+              <option value="Pollena Trocchia">Pollena Trocchia</option>
+              <option value="Pomigliano d'Arco">Pomigliano d'Arco</option>
+              <option value="Pompei">Pompei</option>
+              <option value="Portici">Portici</option>
+              <option value="Pozzuoli">Pozzuoli</option>
+              <option value="Procida">Procida</option>
+              <option value="Qualiano">Qualiano</option>
+              <option value="Quarto">Quarto</option>
+              <option value="Roccarainola">Roccarainola</option>
+              <option value="San Gennaro Vesuviano">San Gennaro Vesuviano</option>
+              <option value="San Giorgio a Cremano">San Giorgio a Cremano</option>
+              <option value="San Giuseppe Vesuviano">San Giuseppe Vesuviano</option>
+              <option value="San Paolo Bel Sito">San Paolo Bel Sito</option>
+              <option value="San Sebastiano al Vesuvio">San Sebastiano al Vesuvio</option>
+              <option value="San Vitaliano">San Vitaliano</option>
+              <option value="Sant'Agnello">Sant'Agnello</option>
+              <option value="Sant'Anastasia">Sant'Anastasia</option>
+              <option value="Sant'Antonio Abate">Sant'Antonio Abate</option>
+              <option value="Santa Maria la Carità">Santa Maria la Carità</option>
+              <option value="Saviano">Saviano</option>
+              <option value="Scisciano">Scisciano</option>
+              <option value="Serrara Fontana">Serrara Fontana</option>
+              <option value="Sorrento">Sorrento</option>
+              <option value="Striano">Striano</option>
+              <option value="Terzigno">Terzigno</option>
+              <option value="Torre Annunziata">Torre Annunziata</option>
+              <option value="Torre del Greco">Torre del Greco</option>
+              <option value="Trecase">Trecase</option>
+              <option value="Tufino">Tufino</option>
+              <option value="Vico Equense">Vico Equense</option>
+              <option value="Villaricca">Villaricca</option>
+              <option value="Visciano">Visciano</option>
+              <option value="Volla">Volla</option>
+            </select>
+          </label>
+          <label>Tipo Immobile
+            <select name="tipoImmobile" required>
+              <option value="">Seleziona tipo immobile</option>
+              <option value="Residenziale">Residenziale</option>
+              <option value="Commerciale">Commerciale</option>
+            </select>
+          </label>
+          <label>Grandezza Immobile
+            <select name="grandezzaImmobile" required>
+              <option value="">Seleziona grandezza</option>
+              <option value="fino a 140,00 mq">fino a 140,00 mq</option>
+              <option value="oltre 140,00 mq">oltre 140,00 mq</option>
+            </select>
+          </label>
+          <div class="checkbox-label">
+            <input type="checkbox" name="haVisura" id="haVisura">
+            <label for="haVisura">Ho la visura e la planimetria catastale</label>
+          </div>
+          <div class="checkbox-label">
+            <input type="checkbox" name="proprietario" id="proprietario">
+            <label for="proprietario">Sono il proprietario e fornirò in seguito il titolo di proprietà</label>
+          </div>
+          <div class="checkbox-label">
+            <input type="checkbox" name="privacy" id="privacy" required>
+            <label for="privacy">Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)</label>
+          </div>
         </div>
-        <div class="checkbox-label">
-          <input type="checkbox" name="proprietario" id="proprietario">
-          <label for="proprietario">Sono il proprietario e fornirò in seguito il titolo di proprietà</label>
+        
+        <!-- Success message (hidden by default) -->
+        <div id="successMessage" class="success-message" style="display: none;">
+          <div class="success-icon">✓</div>
+          <h3>Richiesta inviata con successo!</h3>
+          <p>Grazie per aver compilato il form. Riceverai a breve una email di conferma.</p>
         </div>
-        <div class="checkbox-label">
-          <input type="checkbox" name="privacy" id="privacy" required>
-          <label for="privacy">Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)</label>
+        
+        <!-- Error message (hidden by default) -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+          <div class="error-icon">!</div>
+          <h3>Si è verificato un errore</h3>
+          <p>Non è stato possibile inviare la tua richiesta. Si prega di riprovare più tardi.</p>
+          <button type="button" class="retry-button" onclick="hideErrorMessage()">Riprova</button>
         </div>
-        <button type="submit">Inviami la lettera d'incarico</button>
+        
+        <!-- Loading spinner (hidden by default) -->
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+          <div class="spinner"></div>
+          <p>Invio in corso...</p>
+        </div>
+        
+        <button type="submit" id="submitButton">Inviami la lettera d'incarico</button>
         <p class="note">Riceverai una email di conferma entro 24 ore.</p>
       </form>
     </div>
   </div>
-  <script>
-    document.getElementById('prenotazioneForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-
-      const templateParams = {
-        nome: formData.get("nome"),
-        cognome: formData.get("cognome"),
-        codiceFiscale: formData.get("codiceFiscale"),
-        email: formData.get("email"),
-        ubicazione: formData.get("ubicazione"),
-        tipoImmobile: formData.get("tipoImmobile"),
-        grandezzaImmobile: formData.get("grandezzaImmobile"),
-        haVisura: formData.has("haVisura") ? "Sì" : "No",
-        proprietario: formData.has("proprietario") ? "Sì" : "No"
-      };
-
-      emailjs.send("service_gaa9bxh", "template_n9xghph", templateParams)
-        .then(function() {
-          return emailjs.send("service_gaa9bxh", "template_n9xghph", templateParams);
-        })
-        .then(function() {
-          alert("Richiesta inviata con successo! Riceverai una conferma via email.");
-          form.reset();
-        }, function(error) {
-          alert("Si è verificato un errore. Riprova più tardi.");
-          console.log(error);
-        });
-    });
-  </script>
+  
+  <!-- Debug Console (hidden in production) -->
+  <div class="debug-console" style="display: none;">
+    <h4>Console di Debug</h4>
+    <div id="debugOutput" style="background: #f0f0f0; padding: 10px; max-height: 200px; overflow-y: auto; font-family: monospace;"></div>
+  </div>
+  
+  <!-- Custom JavaScript -->
+  <script src="static/js/form.js"></script>
 </body>
 </html>
