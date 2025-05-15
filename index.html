@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prenota Relazione Tecnica</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("QpmzzTDO3M2Z5RqtZ");
+    })();
+  </script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e6f0fa;
+      color: #333;
+    }
+    .wrapper {
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(to right, #1e5799, #2989d8);
+      color: white;
+      padding: 30px 20px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .header h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+    .header p {
+      margin: 0;
+      font-size: 15px;
+    }
+    .promo-ribbon {
+      position: absolute;
+      top: 15px;
+      right: -40px;
+      background: #e74c3c;
+      color: white;
+      padding: 5px 40px;
+      transform: rotate(45deg);
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .container {
+      padding: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #1e5799;
+      color: white;
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #15437a;
+    }
+    .note {
+      font-size: 12px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div class="promo-ribbon">PROMO</div>
+      <h2>Prenota ora la tua relazione tecnica di stima</h2>
+      <p>Completa il form in pochi semplici passi e ricevi subito la tua offerta personalizzata</p>
+    </div>
+    <div class="container">
+      <form id="prenotazioneForm">
+        <label>Nome <input type="text" name="nome" required></label>
+        <label>Cognome <input type="text" name="cognome" required></label>
+        <label>Codice Fiscale <input type="text" name="codiceFiscale" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Ubicazione immobile
+          <select name="ubicazione" required>
+            <option value="">Seleziona un Comune</option>
+            <option value="Napoli">Napoli</option>
+            <option value="San Giorgio a Cremano">San Giorgio a Cremano</option>
+            <option value="Afragola">Afragola</option>
+            <option value="Portici">Portici</option>
+            <option value="Pozzuoli">Pozzuoli</option>
+          </select>
+        </label>
+        <label>Tipo Immobile
+          <select name="tipoImmobile" required>
+            <option value="Residenziale">Residenziale</option>
+            <option value="Commerciale">Commerciale</option>
+          </select>
+        </label>
+        <label>Grandezza Immobile
+          <select name="grandezzaImmobile" required>
+            <option value="fino a 140,00 mq">fino a 140,00 mq</option>
+          </select>
+        </label>
+        <div class="checkbox-label">
+          <input type="checkbox" name="haVisura" id="haVisura">
+          <label for="haVisura">Ho la visura e la planimetria catastale</label>
+        </div>
+        <div class="checkbox-label">
+          <input type="checkbox" name="proprietario" id="proprietario">
+          <label for="proprietario">Sono il proprietario e fornirò in seguito il titolo di proprietà</label>
+        </div>
+        <div class="checkbox-label">
+          <input type="checkbox" name="privacy" id="privacy" required>
+          <label for="privacy">Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR)</label>
+        </div>
+        <button type="submit">Inviami la lettera d'incarico</button>
+        <p class="note">Riceverai una email di conferma entro 24 ore.</p>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById('prenotazioneForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const templateParams = {
+        nome: formData.get("nome"),
+        cognome: formData.get("cognome"),
+        codiceFiscale: formData.get("codiceFiscale"),
+        email: formData.get("email"),
+        ubicazione: formData.get("ubicazione"),
+        tipoImmobile: formData.get("tipoImmobile"),
+        grandezzaImmobile: formData.get("grandezzaImmobile"),
+        haVisura: formData.has("haVisura") ? "Sì" : "No",
+        proprietario: formData.has("proprietario") ? "Sì" : "No"
+      };
+
+      emailjs.send("service_gaa9bxh", "template_oxau0aa", templateParams)
+        .then(function() {
+          return emailjs.send("service_gaa9bxh", "template_n9xghph", templateParams);
+        })
+        .then(function() {
+          alert("Richiesta inviata con successo! Riceverai una conferma via email.");
+          form.reset();
+        }, function(error) {
+          alert("Si è verificato un errore. Riprova più tardi.");
+          console.log(error);
+        });
+    });
+  </script>
+</body>
+</html>
